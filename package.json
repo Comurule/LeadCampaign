@@ -7,7 +7,7 @@
     "node": "12.x"
   },
   "scripts": {
-    "start": "DEBUG=express-sequelize node ./bin/www",
+    "start": "node ./bin/www",
     "start-dev": "cross-env DEBUG=express-sequelize nodemon ./bin/www",
     "test": "npm run test-unit && npm run test-integration",
     "test-unit": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/unit/*.test.js",
