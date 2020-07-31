@@ -1,0 +1,101 @@
+<div class="col-sm-8">    
+  <div class="jumbotron">
+      
+      <form action="" method="post">
+        <p>
+          Lead First Name:<br>
+          <input type="text" name="firstName" value="<%= lead.firstName%>" placeholder="Babatope" required>
+        </p>
+        <p>
+          Lead Last Name:<br>
+          <input type="text" name="lastName" value="<%= lead.lastName%>" placeholder="Olajide" required>
+        </p>
+        <p>
+          Lead Username:<br>
+          <input type="text" name="username" value="<%= lead.username%>" placeholder="manifest007">
+        </p>
+        <p>
+          Lead Password:<br>
+          <input type="password" name="password" value="" placeholder="password123">
+        </p>
+        <p>
+          Lead Email Address:<br>
+          <input type="email" name="email" value="<%= lead.email%>" placeholder="hello@manifest.com" required>
+        </p>
+        <p>
+          Lead Address:<br>
+          <input type="text" name="address" value="<%= (lead.address != '')? lead.address : ''%>" placeholder="91 Anthony crescent, Alabi village">
+        </p>
+        <p>
+          Lead City:<br>
+          <input type="text" name="city" value="<%= (lead.city != '')? lead.city : ''%>" placeholder="Lagos">
+        </p>
+        <p>
+          Lead Country:<br>
+          <input type="text" name="country" value="<%= (lead.country != '')? lead.country : ''%>" placeholder="Nigeria">
+        </p>
+        <p>
+          Lead Currency:<br>
+          <input type="text" name="leadCurrency" value="<%= (lead.leadCurrency != '')? lead.leadCurrency : ''%>" placeholder="NGN">
+        </p>
+        <p>
+          Lead Language:<br>
+          <input type="text" name="leadLanguage" value="<%= (lead.leadLanguage != '')? lead.leadLanguage : ''%>" placeholder="English">
+        </p>
+        <p>
+          Lead Company Name:<br>
+          <input type="text" name="companyName" value="<%= (lead.companyName != '')? lead.companyName : ''%>" placeholder="Micro Solutions">
+        </p>
+        <p>
+          Lead Company Email:<br>
+          <input type="email" name="companyEmail" value="<%= (lead.companyEmail != '')? lead.companyEmail : ''%>" placeholder="hello@manifest.com">
+        </p>
+        <p>
+          Lead Company Website:<br>
+          <input type="text" name="companyWebsite" value="<%= (lead.companyWebsite != '')? lead.companyWebsite : ''%>" placeholder="www.manifest.com">
+        </p>
+        <p>
+          Lead Company Address:<br>
+          <input type="text" name="companyAddress" value="<%= (lead.companyAddress != '')? lead.companyAddress : ''%>" placeholder="91 Anthony crescent, Alabi village">
+        </p>
+        <p>
+          Lead Company City:<br>
+          <input type="text" name="companyCity" value="<%= (lead.companyCity != '')? lead.companyCity : ''%>" placeholder="Abuja">
+        </p>
+        <p>
+          Lead Company Country:<br>
+          <input type="text" name="companyCountry" value="<%= (lead.companyCountry != '')? lead.companyCountry : ''%>" placeholder="Nigeria">
+        </p>
+        <p>
+          <h5>Preferences:</h5> 
+          <div>
+              <% preferences.forEach(preference => { %>
+                <input type="checkbox" class='permissionCheckbox' name="preferences" id="<%= preference.id %>" value="<%= preference.id %>">
+                <label for="<%= preference.name %>"><%= preference.name %></label>
+                <br/>
+              <% }); %>
+          </div>
+        </p>
+        <p>
+          <input type="submit" value="Update Lead" onClick="checkPermission()">
+        </p>
+      </form>
+  </div>
+</div>
+
+  
+<script>
+const checkPermission = () => {
+  var checkBoxes = document.getElementsByClassName( 'permissionCheckbox' );
+  var isChecked = false;
+  for (var i = 0; i < checkBoxes.length; i++) {
+    if ( checkBoxes[i].checked ) {
+        isChecked = true;
+    };
+  };
+  if (isChecked ) {
+  } else {
+          alert( 'Please, check at least one preference for this Lead!' );
+  };  
+};
+</script>

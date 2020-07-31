@@ -1,0 +1,35 @@
+<div class="col-sm-12">    
+    <div class="">
+      
+<table style="width:100%; text-align:left; padding:1px;" border="1">
+  <tr>
+    <th style="text-align:center;">ID</th>
+    <th style="text-align:center;">Name</th>
+    <th style="text-align:center;">Tier </th>
+    <th style="text-align:center;">Parent PC</th>
+    <th style="text-align:center;">Code</th>
+    <th style="text-align:center;">Display Type</th>
+    <th></th>
+  </tr>
+ <% preferences.forEach(function(preference) { %>
+  <tr>
+    <td style="padding-left:5px"><%= preference.id %></a></td>
+    <td style="padding-left:10px"><a href="/main/preferences/<%= preference.id %>"><%= preference.name %></a></td>
+    <td style="padding-left:10px"><%= preference.tier %></td>
+    <td style="text-align:center;"><a href="/main/preferences/<%= (preference.parentPC)?preference.parentPC: null  %>"><%= (preference.parentPC)?preference.parentPC: null  %></a></td>
+    <td style="padding-left:10px"><%= preference.pcCode %></td>
+    <td style="text-align:center;"><%= preference.displayType %></td>
+    <td style="text-align:center;">  
+        
+            <a href="/main/preferences/<%= preference.id %>/delete"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i> Delete</a><br/>
+            <a href="/main/preferences/<%= preference.id%>/update"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i> Update</a>
+        
+    </td>
+  </tr>
+  <% }); %>
+</table>
+</div>
+<br/>
+</div>
+ 
+ 

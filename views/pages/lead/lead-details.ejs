@@ -1,0 +1,16 @@
+<div class="">
+<h1>Details of a Single Lead - <%= lead.firstName %> <%= lead.lastName %>  </h1>
+<p>I am an Lead for this ID = <%= lead.id %></p>
+<p>Email: <%= lead.email %></p>
+<p>
+    <h6>Preferences</h6>
+    <% if(lead.PreferenceCenters){ %>
+        <ul>
+            <% lead.PreferenceCenters.forEach(preference => { %>
+                <li><a href="/main/preferences/<%= preference.id%>"><%= preference.name %></li></a>
+            <% }); %>
+        </ul>
+    <% } %>
+</p>
+<a href="/main/leads/<%= lead.id %>/update">Edit Lead</a> | <a href="/main/leads/<%= lead.id %>/delete">Delete Lead</a>
+</div>

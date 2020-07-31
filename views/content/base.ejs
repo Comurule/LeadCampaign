@@ -1,0 +1,21 @@
+<% switch (page) {
+case 'homePage' : %>
+       <%- include ('../content/dashboard') %>
+       <% break;
+
+case 'authPage' : %>
+       <%- include ('../content/auth/auth-content') %>
+       <% break;
+ 
+case 'expensePage' : %>
+<%- include ('../content/expense/expense-content') %>
+       <% break;
+
+case 'employeePage' : %>
+<%- include ('../content/employee/employee-content') %>
+       <% break;
+
+default : %>
+       <%- include ('../content/dashboard') %>
+       <%  
+} %>

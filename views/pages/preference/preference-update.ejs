@@ -1,0 +1,41 @@
+<div class="col-sm-8">    
+  <div class="jumbotron">
+    
+    <form action="" method="post">
+      <p>
+        Preference Name:<br>
+        <input type="text" name="name" value="<%= preference[0].name%>">
+      </p>
+      <p>
+        Preference Tier:<br>
+        <input type="text" name="tier" value="<%=preference[0].tier%>">
+      </p>
+      <p>
+        Preference Center Code:<br>
+        <input type="text" name="pcCode" value="<%=preference[0].pcCode%>">
+      </p>
+      <p>
+        Parent Preference Center:<br>
+          <% if(preferences != '' && preferences.length > 0){ %>
+            <select name = "parentPC">
+              <% preferences.forEach(preference => { %>
+                <option  value="<%= preference.id %>"><%= preference.name %></option>
+              <% }); %>
+            </select>
+          <% } %>
+      </p>
+      <p>
+        Preference Display Type:<br>
+        <select name = "displayType">
+            <option  value="Preference Center">Preference Center</option>
+            <option  value="Entity">Entity</option>
+            <option  value="Discover And Learn">Discover And Learn</option>
+        </select>
+      </p>
+      <p>           
+        <input type="submit" value="Update Preference">
+      </p>
+    </form>
+
+  </div>
+</div>

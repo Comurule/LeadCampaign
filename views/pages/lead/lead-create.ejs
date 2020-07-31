@@ -1,0 +1,101 @@
+<div class="col-sm-8">    
+  <div class="jumbotron">
+    
+      <form action="" method="post">
+        <p>
+          Lead First Name:<br>
+          <input type="text" name="firstName" value="" placeholder="Babatope" required>
+        </p>
+        <p>
+          Lead Last Name:<br>
+          <input type="text" name="lastName" value="" placeholder="Olajide" required>
+        </p>
+        <p>
+          Lead Username:<br>
+          <input type="text" name="username" value="" placeholder="manifest007">
+        </p>
+        <p>
+          Lead Password:<br>
+          <input type="password" name="password" value="" placeholder="password123">
+        </p>
+        <p>
+          Lead Email Address:<br>
+          <input type="email" name="email" value="" placeholder="hello@manifest.com" required>
+        </p>
+        <p>
+          Lead Address:<br>
+          <input type="text" name="address" value="" placeholder="91 Anthony crescent, Alabi village">
+        </p>
+        <p>
+          Lead City:<br>
+          <input type="text" name="city" value="" placeholder="Lagos">
+        </p>
+        <p>
+          Lead Country:<br>
+          <input type="text" name="country" value="" placeholder="Nigeria">
+        </p>
+        <p>
+          Lead Currency:<br>
+          <input type="text" name="leadCurrency" value="" placeholder="NGN">
+        </p>
+        <p>
+          Lead Language:<br>
+          <input type="text" name="leadLanguage" value="" placeholder="English">
+        </p>
+        <p>
+          Lead Company Name:<br>
+          <input type="text" name="companyName" value="" placeholder="Micro Solutions">
+        </p>
+        <p>
+          Lead Company Email:<br>
+          <input type="email" name="companyEmail" value="" placeholder="hello@manifest.com">
+        </p>
+        <p>
+          Lead Company Website:<br>
+          <input type="text" name="companyWebsite" value="" placeholder="www.manifest.com">
+        </p>
+        <p>
+          Lead Company Address:<br>
+          <input type="text" name="companyAddress" value="" placeholder="91 Anthony crescent, Alabi village">
+        </p>
+        <p>
+          Lead Company City:<br>
+          <input type="text" name="companyCity" value="" placeholder="Abuja">
+        </p>
+        <p>
+          Lead Company Country:<br>
+          <input type="text" name="companyCountry" value="" placeholder="Nigeria">
+        </p>
+        <p>
+          <h5>Preferences:</h5> 
+          <div>
+              <% preferences.forEach(preference => { %>
+                <input type="checkbox" class='permissionCheckbox' name="preferences" id="<%= preference.id %>" value="<%= preference.id %>">
+                <label for="<%= preference.name %>"><%= preference.name %></label>
+                <br/>
+              <% }); %>
+          </div>
+        </p>
+        <p>
+          <input type="submit" value="Create Lead" onClick="checkPermission()">
+        </p>
+      </form>
+  </div>
+</div>
+
+  
+<script>
+const checkPermission = () => {
+  var checkBoxes = document.getElementsByClassName( 'permissionCheckbox' );
+  var isChecked = false;
+  for (var i = 0; i < checkBoxes.length; i++) {
+    if ( checkBoxes[i].checked ) {
+        isChecked = true;
+    };
+  };
+  if (isChecked ) {
+  } else {
+          alert( 'Please, check at least one preference for this Lead!' );
+  };  
+};
+</script>

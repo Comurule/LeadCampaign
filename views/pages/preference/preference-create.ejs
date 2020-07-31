@@ -1,0 +1,43 @@
+<div class="col-sm-8">    
+  <div class="jumbotron">
+      
+    <form action="" method="post">
+      <p>
+        Preference Name:<br>
+        <input type="text" name="name" placeholder="Name of the Preference Center" value="">
+      </p>
+      <p>
+        Preference Tier:<br>
+        <input type="text" name="tier" placeholder="Tier 1" value="">
+      </p>
+      <p>
+        Preference Center Code:<br>
+        <input type="text" name="pcCode" placeholder="p01" value="">
+      </p>
+      <p>
+        Parent Preference Center:<br>
+          <% if(preferences != '' && preferences.length > 0){ %>
+            <select name = "parentPC">
+              <% preferences.forEach(preference => { %>
+                <option  value="<%= preference.id %>"><%= preference.name %></option>
+              <% }); %>
+            </select>
+          <% } else { %>
+          <h4>No Prefeerences</h4>
+          <% } %>
+      </p>
+      <p>
+        Preference Display Type:<br>
+        <select name = "displayType">
+            <option  value="Preference Center">Preference Center</option>
+            <option  value="Entity">Entity</option>
+            <option  value="Discover And Learn">Discover And Learn</option>
+        </select>
+      </p>
+      <p>           
+        <input type="submit" value="Create Preference">
+      </p>
+    </form>
+
+  </div>
+</div>

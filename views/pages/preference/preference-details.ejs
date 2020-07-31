@@ -1,0 +1,27 @@
+ <div class="col-sm-8">    
+    <div class="">
+    
+        ><h1><%= preference.name %> Details </h1>
+        <p>I am a preference for this ID = <%= preference.id %></p>
+        <p><b>Preference Tier:</b> <%= preference.tier %></p>
+        <p><b>Preference Code:</b>  <%= preference.pcCode %></p>
+        <p>
+            <b>Parent Preference Center:</b> <%= 
+                (parentPC|| parentPC != null)? parentPC.name : 'No Parent Preference Center' 
+                %>
+        </p>
+        <p><b>Preference Display Type: </b> <%= preference.displayType %></p>
+        <p>
+        <b>Leads In this Preference:</b> 
+        <% if(preference.Lead) { %>
+            <% preference.Lead.forEach(function(lead) { %>  <a href="/main/leads/<%= lead.id %>/"> <%= lead.name %> </a>  
+        <% }); 
+         } else{ %>
+         No Leads in this Preference
+         <% } %>
+        </p>
+        <a href="/main/preferences/<%= preference.id %>/update">Edit Preference</a> | <a href="/main/preferences/<%= preference.id %>/delete">Delete Preference</a>
+
+    
+    </div>
+</div>

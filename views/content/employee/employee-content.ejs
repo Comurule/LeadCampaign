@@ -1,0 +1,16 @@
+<!--BOOK VIEW STARTS HERE -->
+<!--complete logic for book view-->
+<% switch (display) {
+    case 'employeeList' : %>
+           <%- include ('../../content/employee/employee-list') %>
+           <% break;
+     
+    case 'employeeDetail' : %>
+    <%- include ('../../content/employee/employee-detail') %>
+           <% break;
+           
+    default : %>
+           <%- include ('../../pages/index') %>
+           <%  
+    } %>
+     

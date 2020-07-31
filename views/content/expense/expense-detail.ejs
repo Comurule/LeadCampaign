@@ -1,0 +1,55 @@
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="row">
+        <div class="col-xl-6">
+
+            <!--begin::Portlet-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title"><%= expense.title %></h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-section">
+                        <div class="kt-section__info">
+                            <%= expense.desc %> <br>
+                            <b>₦ <%= Number (expense.amount || 0).toLocaleString(); %></b> <br>
+                             
+                            <% if (expense.status == 'Approved') { %>
+                                <span class="badge badge-sucess"><%= expense.status %></span> <br>    
+                            <% } else if (expense.status == 'Pending') { %>
+                                <span class="badge badge-warning"><%= expense.status %></span> <br>
+                            <% } else { %>
+                                <span class="badge badge-danger"><%= expense.status %></span> <br>
+                            <% } %>
+                            <%= moment(expense.createdAt).startOf('hour').fromNow() %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end::Portlet-->
+
+            <!--begin::Portlet-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">Expense Details</h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-section">
+                        <div class="kt-section__info">
+                            Type: <%= expense.type %> <br>
+                            Category: <%= expense.category %> <br>
+                            Employee: <%= expense.employee_id %> <br>
+                            department: <%= expense.department %> <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end::Portlet-->
+        </div>
+    </div>
+</div>
