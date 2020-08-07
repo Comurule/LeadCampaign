@@ -7,7 +7,7 @@
     "node": "12.x"
   },
   "scripts": {
-    "start": "express-sequelize node ./bin/www",
+    "start": "DEBUG=express-sequelize node ./bin/www",
     "start-dev": "cross-env DEBUG=express-sequelize nodemon ./bin/www",
     "test": "npm run test-unit && npm run test-integration",
     "test-unit": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/unit/*.test.js",
@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.0",
+    "axios": "^0.19.2",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
@@ -31,7 +32,6 @@
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.1",
     "express-validator": "^6.4.0",
-    "flash": "^1.1.0",
     "helmet": "^3.22.0",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.0",

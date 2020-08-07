@@ -129,6 +129,7 @@ exports.getPreference = async (req, res) => {
 };
 
 exports.getAllPreference = async (req, res) => {
+    console.log('preference list controller');
     try {
         const preferenceList = await PreferenceCenter.findAll();
 

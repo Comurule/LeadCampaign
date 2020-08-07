@@ -1,8 +1,9 @@
 
 const { Lead, PreferenceCenter, CurrentBusiness  } = require('../../models');
 const flash = require('connect-flash');
+const axios = require('axios');
 
-const { renderPage } = require("../../utils/webResponse");
+const { renderPage, axiosFetch } = require("../../utils/webResponse");
 const { errorRes, errorLog, successResWithData, successRes } = require('../../utils/apiResponse');
 
 exports.getCreateLead = async (req, res) => {
@@ -12,14 +13,15 @@ exports.getCreateLead = async (req, res) => {
 };
 
 exports.createLead = async(req, res) => {
-
+    console.log('i am here')
+   
     const leadData = validateInput(req, res);
     try {
         //check for duplicate in the database
         const checkLead = await Lead.findOne({ where: { email: leadData.email }  });
         if(checkLead) {
-            req.flash('error', 'This Email has been used...');
-            return res.redirect('back');
+            // req.flash('error', 'This Email has been used...');
+            return errorRes(res, 'This Email has been used...')
         }
         
         const createdLead = await Lead.create({
@@ -32,10 +34,10 @@ exports.createLead = async(req, res) => {
         const addPreferences = await createOrUpdatePreferences( req, res, createdLead, 'create' )
         if(!addPreferences) {
             await Lead.destroy({ where: { id: createdLead.id } })
-            req.flash('error', 'Failed to add Preferences');
-            return res.redirect('back');
+            // req.flash('error', 'Failed to add Preferences');
+            return res.send( 'Failed to add Preferences');
         }
-        req.flash('success', 'Lead created Successfully...');
+        // req.flash('success', 'Lead created Successfully...');
         return res.redirect('/main/leads');
                 
     } catch (error) {
@@ -59,7 +61,7 @@ exports.updateLead = async(req, res) => {
         //check for duplicate in the database
         const checkLead = await Lead.findOne({ where: { email: leadData.email }  });
         if( checkLead && checkLead.id != req.params.leadId ) {
-            req.flash('error', 'This Email has been used...');
+            // req.flash('error', 'This Email has been used...');
             return res.redirect('back');
         }else{
             
@@ -76,11 +78,11 @@ exports.updateLead = async(req, res) => {
             const data = await Lead.findByPk( req.params.leadId );
             const updatePreferences = await createOrUpdatePreferences( req, res, data, 'update' )
             if(!updatePreferences) {
-                req.flash('error', 'Lead Updated but Failed to update Preferences');
+                // req.flash('error', 'Lead Updated but Failed to update Preferences');
                 return res.redirect('/main/leads');
             }
             //Success Response
-            req.flash('success', 'Lead updated successfully...');
+            // req.flash('success', 'Lead updated successfully...');
             return res.redirect('/main/leads');
         }     
    
@@ -97,7 +99,7 @@ exports.getLead = async (req, res) =>{
             include: PreferenceCenter
         } )
         if(!lead) return errorRes( res, 'Invalid Lead Id');
-        
+        console.log(lead.PreferenceCenters)
         //Success Response
         renderPage(req, res, 'Lead Details', 'GET LEAD DETAILS', {lead});
         
@@ -113,7 +115,7 @@ exports.deleteLead = async (req, res) =>{
         await Lead.destroy( { where: { id: req.params.leadId }  } )
         
         //Success Response
-        req.flash('success', 'Lead deleted Successfully...');
+        // req.flash('success', 'Lead deleted Successfully...');
         return res.redirect('/main/leads');
                
     } catch (error) {
@@ -126,7 +128,7 @@ exports.deleteLead = async (req, res) =>{
 exports.getAllLeads = async (req, res) => {
     try {
         const leads = await Lead.findAll({include: PreferenceCenter});
-        console.log(leads);
+        
         renderPage(req, res, 'Lead List', 'GET LEAD LIST', {leads} )
         
     } catch (error) {
@@ -146,7 +148,7 @@ const validateInput = (req, res) => {
     const address = (req.body.address != '')? req.body.address.trim():'';
     const city = (req.body.city != '')? req.body.city.trim(): '';
     const country = (req.body.country != '')? req.body.country.trim(): '';
-    const leadCurrency = (req.body.leadCurrency != '')? req.body.leadCurrency.trim().toUpperCase(): '';
+    const leadCurrency = (req.body.leadCurrency || req.body.leadCurrency != '')? req.body.leadCurrency.trim().toUpperCase(): '';
     const leadLanguage = (req.body.leadLanguage != '')? req.body.leadLanguage.trim(): '';
     const companyName = (req.body.companyName != '')? req.body.companyName.trim(): '';
     const companyEmail = (req.body.companyEmail != '')? req.body.companyEmail.trim(): '';
@@ -196,10 +198,10 @@ const validateInput = (req, res) => {
 }
 
 const createOrUpdatePreferences = async(req, res, leadData, actionType) => {
-    
+    console.log(req.body.preferences)
     const { preferences } = req.body;
 
-    if( !preferences || typeof(preferences) != 'object') 
+    if( !preferences) 
         return false
 
     //Create Preferences in Lead Profile

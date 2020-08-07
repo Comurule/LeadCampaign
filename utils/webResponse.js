@@ -1,5 +1,8 @@
 const { CurrentBusiness  } = require('../models');
 const flash = require('connect-flash');
+const axios = require("axios");
+
+
 /** 
  * Render Pages on Lead Campaign Front End App
  * @param {object} req - request object
@@ -21,4 +24,20 @@ exports.renderPage = async (req, res, title, functioName, rest ) => {
         current_business_name: currentBusiness[0].current_business_name,
         ...rest
     })
+};
+
+/** 
+ * Axios call to the Api Controllers 
+ * @param {string} method - fetch method( get or post)
+ * @param {string} url - relative path to the API controller
+ * @param {Object} data - Additional details passed to the API(in Post requests)
+ * @returns {Object} - response object from the API call
+ */
+exports.axiosFetch = async ( method, url, data ) => {
+    return await axios({
+        method,
+        url: `https://f410a7592b47419e84d5207582f24765.vfs.cloud9.us-east-1.amazonaws.com/api/v1${url}`,
+        // url: 'https://f410a7592b47419e84d5207582f24765.vfs.cloud9.us-east-1.amazonaws.com/api/v1'+url,
+        data
+    });
 };

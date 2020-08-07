@@ -24,7 +24,7 @@ exports.createAccount = async(req, res) => {
         //check for duplicate in the database
         const checkAccount = await Account.findOne({ where: { email: accountData.email }  });
         if(checkAccount) {
-            req.flash('error', 'This Email has been used...');
+            // req.flash('error', 'This Email has been used...');
             return res.redirect('back');
         }
         
@@ -39,10 +39,15 @@ exports.createAccount = async(req, res) => {
         const addPreferences = await createOrUpdatePreferences( req, res, createdAccount, 'create' )
         if(!addPreferences) {
             await Account.destroy({ where: { id: createdAccount.id } })
-            req.flash('error', 'Failed to add Preferences');
+            // req.flash('error', 'Failed to add Preferences');
             return res.redirect('back');
         }
-        req.flash('success', 'Account created Successfully...');
+        
+        //update the lead model to change status to converted
+        await Lead.update({leadStatus:'converted'}, {
+            where: {id:accountData.leadId}
+        });
+        // req.flash('success', 'Account created Successfully...');
         return res.redirect('/main/accounts');
                 
     } catch (error) {
@@ -72,7 +77,7 @@ exports.updateAccount = async(req, res) => {
         //check for duplicate in the database
         const checkAccount = await Account.findOne({ where: { email: accountData.email }  });
         if( checkAccount && checkAccount.id != req.params.accountId ) {
-            req.flash('error', 'This Email has been used...' )
+            // req.flash('error', 'This Email has been used...' )
             return res.redirect('back');
         
         }
@@ -86,11 +91,11 @@ exports.updateAccount = async(req, res) => {
         const data = await Account.findByPk( req.params.accountId );
         const updatePreferences = await createOrUpdatePreferences( req, res, data, 'update' )
         if(!updatePreferences) {
-            req.flash('error', 'Account Updated but Failed to update Preferences' )
+            // req.flash('error', 'Account Updated but Failed to update Preferences' )
             return res.redirect('/main/accounts');
         }
         //Success Response
-        req.flash('success', 'Account updated successfully...');
+        // req.flash('success', 'Account updated successfully...');
         return res.redirect('/main/accounts');
            
    

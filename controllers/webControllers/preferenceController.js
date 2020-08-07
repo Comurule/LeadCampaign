@@ -23,14 +23,14 @@ exports.createPreference = async (req, res) => {
             where: { name: inputData.name } 
         });
         if( checkPreference ) {
-            req.flash('error', 'This Preference Center already exists in the database.');
+            // req.flash('error', 'This Preference Center already exists in the database.');
             return res.redirect('back');
         };
         
         await PreferenceCenter.create( inputData );
 
         //Success response
-        req.flash('success', 'Preference created Successfully...' )
+        // req.flash('success', 'Preference created Successfully...' )
         return res.redirect('/main/preferences');
 
     } catch (error) {
@@ -41,7 +41,8 @@ exports.createPreference = async (req, res) => {
 
 exports.getUpdatePreference = async (req, res) => {
     const preferences = await PreferenceCenter.findAll();
-    const preference = preferences.filter( preference=> preference.id == Number(req.params.preferenceId))
+    const preference = preferences.filter( preference=> preference.id === Number(req.params.preferenceId))
+    console.log(preference)
     //Success Response
     renderPage(req, res, 'Update Preference', 'GET PREFERENCE UPDATE', {preference, preferences})
   
@@ -52,7 +53,7 @@ exports.updatePreference = async (req, res) => {
 
         const inputData = await validateInputs(req, res);
         if(inputData.parentPC == req.params.preferenceId) {
-            req.flash('error', 'invalid Parent PC value');
+            // req.flash('error', 'invalid Parent PC value');
             return res.redirect('back');
         }
         //check if there is a duplicate in the database
@@ -60,19 +61,19 @@ exports.updatePreference = async (req, res) => {
             where: { name: inputData.name } 
         });
         if(checkPreference && checkPreference.id != req.params.preferenceId) {
-            req.flash('error', 'This Preference already exists in the database.');
+            // req.flash('error', 'This Preference already exists in the database.');
             return res.redirect('back');
         };
         await PreferenceCenter.update( inputData ,{
             where: { id: req.params.preferenceId }
         });
         //Success Response
-        req.flash('success', 'Preference updated Successfully...')
+        // req.flash('success', 'Preference updated Successfully...')
         return res.redirect('/main/preferences');
            
     } catch (error) {
         console.log(error)
-        req.flash('error', 'Preference Center Update is Unsuccessful.')
+        // req.flash('error', 'Preference Center Update is Unsuccessful.')
         res.redirect('back')
     }
 };
@@ -87,7 +88,7 @@ exports.deletePreference = async (req, res) => {
         await PreferenceCenter.destroy({ where: { id: req.params.preferenceId } })
 
         //Success Response
-        req.flash('success', 'Preference deleted Successfully...')
+        // req.flash('success', 'Preference deleted Successfully...')
         return res.redirect('/main/preferences');
 
     } catch (error) {
@@ -119,8 +120,17 @@ exports.getPreference = async (req, res) => {
 
 exports.getAllPreference = async (req, res) => {
     try {
+        
         const preferences = await PreferenceCenter.findAll();
         if(!preferences) preferences = '';
+        const data = await preferences
+        data.forEach(preference=>{
+            preference['dataValues'].ParentPC = (preference.parentPC != null)
+                ? preferences.filter(pc=> pc.id===preference.parentPC)
+                : null;
+            console.log(preference['dataValues'].ParentPC)
+        })
+        
         //Success Response
         renderPage(req, res, 'Preference List', 'GET PREFERENCE LIST', {preferences})
         

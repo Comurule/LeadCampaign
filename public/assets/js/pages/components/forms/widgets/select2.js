@@ -2,53 +2,19 @@
 var KTSelect2 = function() {
     // Private functions
     var demos = function() {
-        // basic
-        $('#kt_select2_1, #kt_select2_1_validate').select2({
-            placeholder: "Select a state"
-        });
+        
 
-        // nested
-        $('#kt_select2_2, #kt_select2_2_validate').select2({
-            placeholder: "Select a state"
-        });
-
-        // multi select
+        // preference center
         $('#kt_select2_3, #kt_select2_3_validate').select2({
-            placeholder: "Select a state",
+            placeholder: "Select your preferred Preference Center(at least two(2))",
+            miniimumSelectionLength: 2
+            
         });
 
-        // basic
+        // preferred currency
         $('#kt_select2_4').select2({
-            placeholder: "Select a state",
+            placeholder: "Type in your preferred currency",
             allowClear: true
-        });
-
-        // group input
-        $('#kt_select2_group_1, #kt_select2_group_2').select2({
-            placeholder: "Select a state"
-        });
-
-        // loading data from array
-        var data = [{
-            id: 0,
-            text: 'Enhancement'
-        }, {
-            id: 1,
-            text: 'Bug'
-        }, {
-            id: 2,
-            text: 'Duplicate'
-        }, {
-            id: 3,
-            text: 'Invalid'
-        }, {
-            id: 4,
-            text: 'Wontfix'
-        }];
-
-        $('#kt_select2_5').select2({
-            placeholder: "Select a value",
-            data: data
         });
 
         // loading remote data
@@ -112,44 +78,6 @@ var KTSelect2 = function() {
         });
 
         // custom styles
-
-        // tagging support
-        $('#kt_select2_12_1, #kt_select2_12_2, #kt_select2_12_3, #kt_select2_12_4').select2({
-            placeholder: "Select an option",
-        });
-
-        // disabled mode
-        $('#kt_select2_7').select2({
-            placeholder: "Select an option"
-        });
-
-        // disabled results
-        $('#kt_select2_8').select2({
-            placeholder: "Select an option"
-        });
-
-        // limiting the number of selections
-        $('#kt_select2_9').select2({
-            placeholder: "Select an option",
-            maximumSelectionLength: 2
-        });
-
-        // hiding the search box
-        $('#kt_select2_10').select2({
-            placeholder: "Select an option",
-            minimumResultsForSearch: Infinity
-        });
-
-        // tagging support
-        $('#kt_select2_11').select2({
-            placeholder: "Add a tag",
-            tags: true
-        });
-
-        // disabled results
-        $('.kt-select2-general').select2({
-            placeholder: "Select an option"
-        });
     }
 
     var modalDemos = function() {

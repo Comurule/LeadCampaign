@@ -77,7 +77,7 @@ app.use(tools.onRequestEnd);
 // generate menu of the application
 app.use('/user', tools.generateUserMenu);
 
-const isWhiteListed = ( path, whiteList = [ 'login', 'autoLogin', 'main' ] ) => {
+const isWhiteListed = ( path, whiteList = [ 'login', 'autoLogin', 'api/v1' ] ) => {
     let whiteListed = false;
     for(let i=0; i < whiteList.length; i++) {
         // this won't check authentication for login and autoLogin
