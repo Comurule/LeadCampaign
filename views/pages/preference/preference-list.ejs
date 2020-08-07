@@ -243,7 +243,7 @@
 												<tr>
 													<td><a href="/main/preferences/<%= preference.id %>"><%= preference.name %></a></td>
 													<td>Tier <%= preference.tier %></td>
-													<td><%= (preference['dataValues'].ParentPC != null )? preference['dataValues'].ParentPC[0].name : '';%></td>
+													<td><%= (preference.ParentPC != null )? preference.ParentPC[0].name : '';%></td>
 													<td>p<%= preference.pcCode %></td>
 													<td><%= preference.displayType %></td>
 													<td>

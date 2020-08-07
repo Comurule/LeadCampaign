@@ -1,12 +1,14 @@
 const { PreferenceCenter, Lead } = require('../../models');
 const flash = require('connect-flash');
+const axios = require('axios');
 
 
 const { errorRes, errorLog, successResWithData, successRes } = require('../../utils/apiResponse');
-const { renderPage } = require("../../utils/webResponse");
+const { renderPage, axiosFetch } = require("../../utils/webResponse");
 
 exports.getCreatePreference = async (req, res) => {
-    const preferences = await PreferenceCenter.findAll();
+    const preferences = await axiosFetch(req, 'GET', '/preferences', '' )
+    console.log(preferences)
     //Success Response
     renderPage(req, res, 'Create Preference', 'GET PREFERENCE CREATE', {preferences})
     
@@ -121,14 +123,15 @@ exports.getPreference = async (req, res) => {
 exports.getAllPreference = async (req, res) => {
     try {
         
-        const preferences = await PreferenceCenter.findAll();
-        if(!preferences) preferences = '';
-        const data = await preferences
-        data.forEach(preference=>{
-            preference['dataValues'].ParentPC = (preference.parentPC != null)
+        const data = await axiosFetch(req, 'GET', '/preferences', '' )
+           
+        if(!data.status) return errorLog( res, 'Error: Something went wrong.' );
+        const preferences = data.data;
+        preferences.forEach(preference=>{
+            preference.ParentPC = (preference.parentPC != null)
                 ? preferences.filter(pc=> pc.id===preference.parentPC)
                 : null;
-            console.log(preference['dataValues'].ParentPC)
+                console.log(preference.ParentPC);
         })
         
         //Success Response
